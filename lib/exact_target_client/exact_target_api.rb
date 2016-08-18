@@ -60,6 +60,24 @@ module ExactTargetClient
       check_response(response)
     end
 
+    def create_data_extension(properties)
+      response = soap_client.create('DataExtension', properties)
+      check_response(response)
+    end
+
+    def upsert_data_extension_row(data_extension_customer_key, primary_key_name, primary_key_value, object_hash)
+      rest_client.upsert_data_extension_row(data_extension_customer_key, primary_key_name, primary_key_value, object_hash)
+    end
+
+    def increment_data_extension_row(data_extension_customer_key, primary_key_name, primary_key_value, column, step = 1)
+      rest_client.increment_data_extension_row(data_extension_customer_key, primary_key_name, primary_key_value, column, step)
+    end
+
+    def get_subscribers_by_email(email, properties)
+      response = soap_client.retrieve('Subscriber', properties, {property: 'EmailAddress', value: email})
+      check_response(response)
+    end
+
     private
     attr_accessor :soap_client, :rest_client
 
@@ -86,23 +104,6 @@ module ExactTargetClient
       end
     end
 
-    def create_data_extension(properties)
-      response = soap_client.create('DataExtension', properties)
-      check_response(response)
-    end
-
-    def upsert_data_extension_row(data_extension_customer_key, primary_key_name, primary_key_value, object_hash)
-      rest_client.upsert_data_extension_row(data_extension_customer_key, primary_key_name, primary_key_value, object_hash)
-    end
-
-    def increment_data_extension_row(data_extension_customer_key, primary_key_name, primary_key_value, column, step = 1)
-      rest_client.increment_data_extension_row(data_extension_customer_key, primary_key_name, primary_key_value, column, step)
-    end
-
-    def get_subscribers_by_email(email, properties)
-      response = soap_client.retrieve('Subscriber', properties, {property: 'EmailAddress', value: email})
-      check_response(response)
-    end
   end
 
 end
