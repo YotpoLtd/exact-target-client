@@ -25,12 +25,12 @@ module ExactTargetClient
 
     def upsert_data_extension_row(data_extension_customer_key, primary_key_name, primary_key_value, object_hash)
       request_url = "#{Conf.api_endpoint}/hub/v1/dataevents/key:#{data_extension_customer_key}/rows/#{primary_key_name}:#{primary_key_value}"
-      request('PUT', request_url, {values: object_hash})
+      request(:put, request_url, {values: object_hash})
     end
 
     def increment_data_extension_row(data_extension_customer_key, primary_key_name, primary_key_value, column, step = 1)
       request_url = "#{Conf.api_endpoint}/hub/v1/dataevents/key:#{data_extension_customer_key}/rows/#{primary_key_name}:#{primary_key_value}/column/#{column}/increment?step=#{step}"
-      request('PUT', request_url)
+      request(:put, request_url)
     end
 
 
@@ -43,20 +43,17 @@ module ExactTargetClient
           url,
           method: type,
           body: body,
-          headers: headers
+          headers: headers,
+          followlocation: true
       )
       request.on_complete do |response|
-        if response.success?
-          return Oj.load(response.body)
-        elsif response.timed_out?
-          raise ExactTargetClient::ExactTargetAPI::TimeOut
-        else
-          response = JSON.parse(response.response_body)
-          if (response['message'] == 'Unauthorized' || response['message'] == 'Not Authorized') && url == Conf.token_endpoint
+        case response.code
+          when 200..299
+            return Oj.load(response.body)
+          when 401
             raise ExactTargetClient::ExactTargetAPI::TokenExpired
           else
-            raise ExactTargetClient::ExactTargetAPI::ClientException.new("REST API Error #{response['errorcode'].to_s}: #{response['message']}")
-          end
+            raise ExactTargetClient::ExactTargetAPI::ClientException.new("REST API Error #{response.code}: #{response.response_body}")
         end
       end
       request.run

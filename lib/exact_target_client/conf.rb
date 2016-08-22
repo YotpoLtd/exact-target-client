@@ -4,6 +4,7 @@ module ExactTargetClient
 
     DEFAULT_TOKEN_ENDPOINT = 'https://auth.exacttargetapis.com/v1/requestToken'
     DEFAULT_API_ENDPOINT = 'https://www.exacttargetapis.com'
+    DEFAULT_WSDL = 'https://webservice.s%{instance}.exacttarget.com/etframework.wsdl'
 
     class << self
 
@@ -12,6 +13,7 @@ module ExactTargetClient
       def configure
         @token_endpoint = DEFAULT_TOKEN_ENDPOINT
         @api_endpoint = DEFAULT_API_ENDPOINT
+        @wsdl = DEFAULT_WSDL
         yield self
         true
       end
