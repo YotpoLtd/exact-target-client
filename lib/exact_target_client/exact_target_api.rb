@@ -60,6 +60,24 @@ module ExactTargetClient
       check_response(response)
     end
 
+    def create_content_area(name, content)
+      response = soap_client.create('ContentArea',
+                                    {'Name' => name,
+                                     'Content' => content}
+      )
+      check_response(response)
+    end
+
+    def update_content_area(content_area_id, name, content)
+      response = soap_client.update('ContentArea', {'ID' => content_area_id, 'Name' => name, 'Content' => content})
+      check_response(response)
+    end
+
+    def delete_content_area(content_area_id)
+      response = soap_client.delete('ContentArea', {'ID' => content_area_id})
+      check_response(response)
+    end
+
     def create_data_extension(properties)
       response = soap_client.create('DataExtension', properties)
       check_response(response)
