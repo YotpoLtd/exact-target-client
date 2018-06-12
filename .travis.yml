@@ -1,0 +1,13 @@
+language: ruby
+rvm:
+- 2.2
+- 2.3
+deploy:
+  provider: rubygems
+  api_key:
+    secure: Rz9JcRqMObv6uOTXl8bKAPjb+go+Bj4WA3l2uqH1t119ACRNKmX7w4F0bOnBh3vbVt7Mdew9Wv+BmQ6dcgHfYWOdK6S3wK50C8XKNLaPO/jHhSfd30MKaOp8tSHLZZxt2NKLx8q41nD/oRVpwfVCZw9PTUDCDE8nAgn8CT99eCbmirks/TPi6WUvDzC8EMkHWiWgfBo1IUmCeYf1JorIlXC32q8Vy2d687DBPeIrKORVXzmbjtFC9t8nG0h5v1mg5MiXjmlJIhVBzPZnpE3YkXZ0Ds1OB8Or2uLCSbFksUSc7I/F85ZdG81gmihnFMc4aiWppB1YbNEGuqD7MAZ2+CdALuvspYYQpMClgreZQKl04Ukle4KhXoNJD3oMlHRK3cabktrtKPvCKIBOwxEehEL7FHELF2h2wh50UFjTK4SQnzNljQ8BRly5oSAiWOtx/0WWH/a637Er7btjOnX1klCkNMtyerVRxx+S9eLCosW4MdiJwekn/I1deiLRnvMmRAEaPdOzWD9jxXD30DEdHVl4xwKsnvtMdw0x3SuiHXSHC0SBUQ6PKzx3/zb90iRgE1+jr8cMYjDXe+8p7C61BMkzBox4ulNe0156qTM6Yn9AmZcrMfIg/YZgGwjYEKxYUcrqYlSygESJj/OvAnFhW7W4fvBUc7Y97eSr8GGfNwA=
+  gem: exact-target-client
+  on:
+    branch: master
+    repo: YotpoLtd/exact-target-client
+    rvm: 2.3
